@@ -21,6 +21,7 @@ package view
 	import view.bar.VolumeBarView;
 	import view.error.InitializationErrorView;
 	import view.log.CriticalLogView;
+	import view.simplifiedUI.SimplifiedUI;
 	import view.tips.TipTextView;
 	import view.tips.TipTimeView;
 
@@ -60,6 +61,8 @@ package view
 		
 		private var _liveEndedView:LiveEndedView;
 		
+		private var _simplifiedUI:SimplifiedUI;
+		
 		private var _m:Model;
 		
 		public function View(m:Model)
@@ -98,6 +101,19 @@ package view
 			_root.addChild(_liveEndedView);
 			
 			initUi();
+			
+			_simplifiedUI = new SimplifiedUI(_m);
+			_simplifiedUI.name = "SimplifiedUI";
+			_simplifiedUI.addEventListener(AVPlayerEvent.PAUSE, function(evt:AVPlayerEvent):void{ dispatchEvent(evt); });
+			_simplifiedUI.addEventListener(AVPlayerEvent.PLAY, function(evt:AVPlayerEvent):void{ dispatchEvent(evt); });
+			_simplifiedUI.addEventListener(AVPlayerEvent.SEEK, function(evt:AVPlayerEvent):void{ dispatchEvent(evt); });		
+			_simplifiedUI.addEventListener(AVPlayerEvent.REWIND, function(evt:AVPlayerEvent):void{ dispatchEvent(evt); });
+			_simplifiedUI.addEventListener(AVPlayerEvent.TO_FULLSCREEN, function(evt:AVPlayerEvent):void { dispatchEvent(evt);  });
+			_simplifiedUI.addEventListener(AVPlayerEvent.TO_NORMALSCREEN, function(evt:AVPlayerEvent):void { dispatchEvent(evt);  });
+			_simplifiedUI.addEventListener(AVPlayerEvent.ADJUST_VOLUME, function(evt:AVPlayerEvent):void { dispatchEvent(evt);  });
+			_simplifiedUI.addEventListener(AVPlayerEvent.MUTE, function(evt:AVPlayerEvent):void { dispatchEvent(evt);  });
+			_simplifiedUI.addEventListener(AVPlayerEvent.UNMUTE, function(evt:AVPlayerEvent):void { dispatchEvent(evt);  });
+			_root.addChild(_simplifiedUI);
 			
 			_bufferingView = new BufferingView(_m);
 			_bufferingView.name = "BufferingView";
