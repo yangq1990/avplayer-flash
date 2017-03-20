@@ -34,12 +34,7 @@ package controller.task
 		public function parse():void
 		{
 			var parameters:Object = StageReference.getInstance().root.loaderInfo.parameters;
-//			parameters["url"] = "http://yycloudvod1376526695.bs2dl.yy.com/djVmMGRhYjRlZDI4MjkzYjZmYmE5MTAwODk3MzI4ZDU0MTM5NzUxNTk3MGhi.m3u8";
-			parameters["skinUrl"] = "./skin.swf";
-			parameters["debug"] = "1";
-//			parameters["autoPlay"] = "1";
-//			parameters["autoRewind"] = "1";
-			
+
 			if(parameters["debug"] == "true" || parameters["debug"] == "1")
 			{
 				_m.debug = true;
