@@ -17,8 +17,14 @@ package view.tips
 		{
 			super(m);
 			
-			_skin = _ui.TipTime;
-			_skin.mouseChildren = _skin.mouseEnabled = false;			
+			if(!_m.simplifiedUI) {
+				_skin = _ui.TipTime;
+			} else {
+				_skin = _ui.TipTime_simplified;
+			}
+			
+			_skin.mouseChildren = _skin.mouseEnabled = false;
+			
 			_skin.tempLine.visible = false;
 			
 			this.addChild(_skin);
