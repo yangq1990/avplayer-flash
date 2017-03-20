@@ -64,6 +64,9 @@ package view
 			super.addListeners();			
 			_m.addEventListener(VideoViewEvent.MEDIA_ELEMENT_ADDED, onMediaElementAdded);		
 			eventbus.addEventListener(VideoViewEvent.ADJUST_PERCENT, onAdjustPercent);		
+			this.doubleClickEnabled = true; 
+			this.addEventListener(MouseEvent.CLICK, onMouseClick);
+			this.addEventListener(MouseEvent.DOUBLE_CLICK, onDoubleClick);	
 			_stageRef.stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 			_stageRef.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			
@@ -77,6 +80,7 @@ package view
 		{
 			_mediaContainer = _m.mediaContainer;
 			this.addChild(_mediaContainer);
+			this.buttonMode = true; //禁用暂停功能时不显示手型光标
 			this.mouseChildren = false;
 			render();
 		}	
