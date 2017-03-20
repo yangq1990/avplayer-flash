@@ -1,7 +1,7 @@
 # avplayer-flash
 支持hls点播和直播的flash播放器<br/>
 
-***播放器支持参数如下:***<br/>
+<b>播放器支持参数如下:</b><br/>
 　　url　　　　　　　　string　　　　　　hls vod or hls live地址<br/>
 　　skinUrl　　　　　　string　　　　　　播放器皮肤地址<br/>
 　　title　　　　　　　&ensp;string　　　　　　视频标题。全屏时显示在播放器上方的TopBarView<br/>
@@ -12,5 +12,5 @@
 　　disableHWAccel　&ensp;&ensp;"true" or "1"　　　默认使用硬件加速。传入"true" or "1"，播放器关闭硬件加速<br/>
 　　poster　　　　　　&ensp;string　　　　&ensp;&ensp;&ensp;&ensp;非自动播放时显示的封面图片地址<br/>
 
-***How to use:***<br/>
+<b>How to use:</b><br/>
 　　建议通过 [avplayer.js](https://github.com/yangq1990/avplayer.js) 引入使用此flash播放器。
