@@ -132,7 +132,6 @@ package controller
 		/** 切换到全屏状态 **/
 		private function onToFullscreen(evt:AVPlayerEvent):void
 		{
-			var version:Number = _m.fpVersion;
 			var stageRef:StageReference = StageReference.getInstance();
 			if(stageRef.stage.allowsFullScreen)
 			{
