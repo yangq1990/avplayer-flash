@@ -42,19 +42,21 @@ package view.bar
 		{		
 			super(m);			
 			
-			_skin = _ui.RightBar;
-			_skinWidth = _skin.width;
-			addChild(_skin);
-			
-			_toFullScnBtn = _skin.getChildByName("fullScnBtn") as MovieClip;
-			_toNormalScnBtn = _skin.getChildByName("smallScnBtn") as MovieClip;
-			
-			_toFullScnBtn.visible = true;
-			_toNormalScnBtn.visible = false;			
-			
-			addMouseEventListeners([_toFullScnBtn, _toNormalScnBtn]);
-			
-			this.visible = false;
+			if(!_m.simplifiedUI) {
+				_skin = _ui.RightBar;
+				_skinWidth = _skin.width;
+				addChild(_skin);
+				
+				_toFullScnBtn = _skin.getChildByName("fullScnBtn") as MovieClip;
+				_toNormalScnBtn = _skin.getChildByName("smallScnBtn") as MovieClip;
+				
+				_toFullScnBtn.visible = true;
+				_toNormalScnBtn.visible = false;			
+				
+				addMouseEventListeners([_toFullScnBtn, _toNormalScnBtn]);
+				
+				this.visible = false;	
+			}
 		}
 		
 		private function addMouseEventListeners(mcArr:Array):void 
@@ -119,13 +121,15 @@ package view.bar
 		
 		override protected function addListeners():void
 		{
-			super.addListeners();
-		
-			eventbus.addEventListener(RightBarEvent.VIDEO_VIEW_DOUBLE_CLICKED, onVideoViewDoubleClicked);
-			eventbus.addEventListener(RightBarEvent.CHILD_MOUSE_DISABLED, function(evt:RightBarEvent):void { _skin.mouseChildren=false; });
-			eventbus.addEventListener(RightBarEvent.CHILD_MOUSE_ENABLED, function(evt:RightBarEvent):void { _skin.mouseChildren=true; });
-			
-			_m.addEventListener(ModelEvent.LIVE_M3U8, onLiveM3U8);
+			if(!_m.simplifiedUI) {
+				super.addListeners();
+				
+				eventbus.addEventListener(RightBarEvent.VIDEO_VIEW_DOUBLE_CLICKED, onVideoViewDoubleClicked);
+				eventbus.addEventListener(RightBarEvent.CHILD_MOUSE_DISABLED, function(evt:RightBarEvent):void { _skin.mouseChildren=false; });
+				eventbus.addEventListener(RightBarEvent.CHILD_MOUSE_ENABLED, function(evt:RightBarEvent):void { _skin.mouseChildren=true; });
+				
+				_m.addEventListener(ModelEvent.LIVE_M3U8, onLiveM3U8);
+			}
 		}
 		
 		/** 
@@ -146,6 +150,9 @@ package view.bar
 		
 		override protected function render():void
 		{			
+			if(_m.simplifiedUI) 
+				return;
+			
 			!this.visible && (this.visible = true);
 			TweenLite.killTweensOf(_skin);
 			if(displayState == StageDisplayState.NORMAL) 

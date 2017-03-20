@@ -22,13 +22,15 @@ package view.bar
 		{
 			super(m);
 			
-			_skin = _ui.BottomBar;
-			_skin.cacheAsBitmap = true;
-			addChild(_skin);
+			if(!_m.simplifiedUI) {
+				_skin = _ui.BottomBar;
+				_skin.cacheAsBitmap = true;
+				addChild(_skin);
 			
-			_skin.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+				_skin.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
 			
-			this.visible = false;
+				this.visible = false;
+			}
 		}
 		
 		private function onMouseOver(evt:MouseEvent):void
@@ -37,11 +39,16 @@ package view.bar
 		}
 		
 		override protected function addListeners():void {
-			super.addListeners();
+			if(!_m.simplifiedUI) {
+				super.addListeners();
+			}
 		}
 		
 		override protected function render():void
-		{			
+		{
+			if(_m.simplifiedUI)
+				return;
+			
 			!this.visible && (this.visible = true);
 			
 			TweenLite.killTweensOf(_skin);

@@ -342,8 +342,10 @@ package view.bar
 			TweenLite.from(_skin, 0.4, {alpha:0, onComplete: exitHTMTweenComplete});
 		}
 		
-		private function onLayout(evt:VolumeBarEvent):void 
-		{			
+		private function onLayout(evt:VolumeBarEvent):void {
+			if(_m.simplifiedUI)
+				return;
+			
 			!this.visible && (this.visible = true);
 			TweenLite.killTweensOf(_skin);
 			if(!isTextInputViewAvailable)

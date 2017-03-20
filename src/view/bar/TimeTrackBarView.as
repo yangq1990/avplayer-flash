@@ -66,33 +66,37 @@ package view.bar
 		{
 			super(m);	
 			
-			_skin =  _ui.TimeTrackBar;
-			_skin.useHandCursor = true;
-			_skin.buttonMode = true;
-			_skin.cacheAsBitmap = true;
-			_skin.mouseChildren = false;
-			this.addChild(_skin);
-			
-			_skin.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-			_skin.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-			_skin.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
-			_skin.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-			
-			_icon = _skin.icon as Sprite;	
-			_icon.x = _icon.width * 0.5;
-			_skin.done.width = _skin.mark.width = 0;		
-			this.visible = false;
+			if(!_m.simplifiedUI) {
+				_skin =  _ui.TimeTrackBar;
+				_skin.useHandCursor = true;
+				_skin.buttonMode = true;
+				_skin.cacheAsBitmap = true;
+				_skin.mouseChildren = false;
+				this.addChild(_skin);
+				
+				_skin.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+				_skin.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+				_skin.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
+				_skin.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+				
+				_icon = _skin.icon as Sprite;	
+				_icon.x = _icon.width * 0.5;
+				_skin.done.width = _skin.mark.width = 0;		
+				this.visible = false;
+			}
 		}
 		
 		override protected function addListeners():void
 		{
-			super.addListeners();
-			
-			eventbus.addEventListener(TimeTrackBarEvent.MOUSE_IN_HOTZONE, onMouseInHotZone);
-			eventbus.addEventListener(TimeTrackBarEvent.MOUSE_OUT_HOTZONE, onMouseOutHotZone);
-			_m.addEventListener(ModelEvent.BYTES_LOADED_CHANGE, onBytesLoadedChange);
-			JSAPI.getInstance().addEventListener(JSEvent.SEEK, onJSSeek);
-			eventbus.addEventListener(ToAVPlayerEvent.PLAYER_SEEKING_COMPLETE, onPlayerSeekingComplete);
+			if(!_m.simplifiedUI) {
+				super.addListeners();
+				
+				eventbus.addEventListener(TimeTrackBarEvent.MOUSE_IN_HOTZONE, onMouseInHotZone);
+				eventbus.addEventListener(TimeTrackBarEvent.MOUSE_OUT_HOTZONE, onMouseOutHotZone);
+				_m.addEventListener(ModelEvent.BYTES_LOADED_CHANGE, onBytesLoadedChange);
+				JSAPI.getInstance().addEventListener(JSEvent.SEEK, onJSSeek);
+				eventbus.addEventListener(ToAVPlayerEvent.PLAYER_SEEKING_COMPLETE, onPlayerSeekingComplete);
+			}
 		}
 	
 		private function onMouseInHotZone(evt:TimeTrackBarEvent):void
@@ -350,6 +354,9 @@ package view.bar
 		
 		override protected function render():void
 		{			
+			if(_m.simplifiedUI)
+				return;
+			
 			//这里的逻辑有时间需要优化下，感觉有点不太清晰
 			!this.visible && (this.visible = true);			
 			TweenLite.killTweensOf(_skin);

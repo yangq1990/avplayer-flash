@@ -42,27 +42,29 @@ package view.bar
 		{						
 			super(m);			
 			
-			_skin = _ui.LeftBar;
-			addChild(_skin);
-			
-			_playBtn = _skin.getChildByName("playBtn") as MovieClip;		
-			_pauseBtn = _skin.getChildByName("pauseBtn") as MovieClip;
-			_replayBtn = _skin.getChildByName("replayBtn") as MovieClip;
-			
-			_elapsedTxt = _skin.getChildByName("elapsedTxt") as TextField;
-			_totalTxt = _skin.getChildByName("totalTxt") as TextField;
-			_elapsedTxt.visible = _totalTxt.visible = _skin.seperatorTxt.visible = true;
-			
-			_playBtn.visible = true;
-			_replayBtn.visible = _pauseBtn.visible = false;			
-			
-			addMouseEventListeners([_playBtn, _pauseBtn, _replayBtn]);
-			
-			if(!_m.autoPlay) {  //非自动播放下显示第二帧
-				_playBtn.gotoAndStop(2);
+			if(!_m.simplifiedUI) {
+				_skin = _ui.LeftBar;
+				addChild(_skin);
+				
+				_playBtn = _skin.getChildByName("playBtn") as MovieClip;		
+				_pauseBtn = _skin.getChildByName("pauseBtn") as MovieClip;
+				_replayBtn = _skin.getChildByName("replayBtn") as MovieClip;
+				
+				_elapsedTxt = _skin.getChildByName("elapsedTxt") as TextField;
+				_totalTxt = _skin.getChildByName("totalTxt") as TextField;
+				_elapsedTxt.visible = _totalTxt.visible = _skin.seperatorTxt.visible = true;
+				
+				_playBtn.visible = true;
+				_replayBtn.visible = _pauseBtn.visible = false;			
+				
+				addMouseEventListeners([_playBtn, _pauseBtn, _replayBtn]);
+				
+				if(!_m.autoPlay) {  //非自动播放下显示第二帧
+					_playBtn.gotoAndStop(2);
+				}
+				
+				this.visible = false;
 			}
-			
-			this.visible = false;
 		}
 		
 		private function addMouseEventListeners(mcArr:Array):void 
@@ -120,11 +122,13 @@ package view.bar
 		
 		override protected function addListeners():void
 		{
-			super.addListeners();
-			
-			eventbus.addEventListener(LeftBarEvent.VALIDATE_CURRENT_TIME, onValidateCurrentTime);
-			_stageRef.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-			eventbus.addEventListener(ToAVPlayerEvent.PLAYER_SEEKING_COMPLETE, onPlayerSeekingComplete);
+			if(!_m.simplifiedUI) {
+				super.addListeners();
+				
+				eventbus.addEventListener(LeftBarEvent.VALIDATE_CURRENT_TIME, onValidateCurrentTime);
+				_stageRef.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+				eventbus.addEventListener(ToAVPlayerEvent.PLAYER_SEEKING_COMPLETE, onPlayerSeekingComplete);
+			}			
 		}
 		
 		private function onValidateCurrentTime(evt:LeftBarEvent):void
