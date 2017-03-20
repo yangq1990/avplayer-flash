@@ -65,6 +65,11 @@ package controller.task
 				OSMFSettings.enableStageVideo = false; 
 			}
 			
+			if(parameters["simplifiedUI"] == "true" || parameters["simplifiedUI"] == "1")
+			{
+				_m.simplifiedUI = true;
+			}
+			
 			if(parameters["poster"] != "") { //封面地址
 				_m.videoVO.poster = parameters["poster"];
 			}

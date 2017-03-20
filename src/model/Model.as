@@ -86,6 +86,7 @@ package model
 		
 		private var _autoRewind:Boolean = false; //是否自动重播
 		private var _controlbarHoveringOn:Boolean = false; //controlbar悬浮是否开启
+		private var _simplifiedUI:Boolean = false; //是否用精简版UI
 		
 		public function Model()
 		{			
@@ -694,5 +695,16 @@ package model
 		{
 			_skinUrl = value;
 		}	
+
+		public function get simplifiedUI():Boolean
+		{
+			return _simplifiedUI;
+		}
+
+		public function set simplifiedUI(value:Boolean):void
+		{
+			_simplifiedUI = value;
+		}
+
 	}
 }
